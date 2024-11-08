@@ -114,15 +114,15 @@ export default function ProjectFiles(props: ProjectFilesProps) {
                         {files.map((file) => renderFiles(file))}
                     </ul>
                 )}
-            </aside>
-            <main className="flex-1 p-6 bg-gray-100">
-                <h2 className="text-xl font-semibold text-gray-800">Files Overview</h2>
 
                 <div className="mt-4">
                     {paginationLinks && (
                         <Pagination paginationLinks={paginationLinks} handleNavigation={handleNavigation} />
                     )}
                 </div>
+            </aside>
+            <main className="flex-1 p-6 bg-gray-100">
+                <h2 className="text-xl font-semibold text-gray-800">Files Overview</h2>
             </main>
         </div>
     );
