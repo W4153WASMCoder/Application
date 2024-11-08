@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { TransitionStates, PaginationLinks, ProjectFileStructure } from './models';
 import Pagination from './Pagination';
-// credit to https://stackoverflow.com/questions/29085197/how-do-you-json-stringify-an-es6-map for json revivor for maps
+import { FaFolder, FaFolderOpen, FaFile } from 'react-icons/fa';
+
 export interface ProjectFilesProps {
     tokenID: number;
     project_id: number;
@@ -26,13 +27,13 @@ export default function ProjectFiles(props: ProjectFilesProps) {
                 headers: { TokenID: props.tokenID },
             });
             setFiles(JSON.parse(response.data.data, function reviver(key, value) {
-                if(typeof value === 'object' && value !== null) {
-                  if (value.dataType === 'Map') {
-                    return new Map(value.value);
-                  }
+                if (typeof value === 'object' && value !== null) {
+                    if (value.dataType === 'Map') {
+                        return new Map(value.value);
+                    }
                 }
                 return value;
-              }));
+            }));
             setPaginationLinks(response.data.links);
         } catch (err: any) {
             setError("Error fetching project files.");
@@ -60,20 +61,26 @@ export default function ProjectFiles(props: ProjectFilesProps) {
             return newExpanded;
         });
     };
+
     const renderFiles = (fileStructure: ProjectFileStructure) => {
         const isExpanded = expandedFolders.has(fileStructure.file.FileID!);
         return (
             <li key={fileStructure.file.FileID!} className="ml-4">
                 <div
-                    className="font-semibold cursor-pointer"
+                    className="flex items-center cursor-pointer text-gray-700 hover:text-gray-900"
                     onClick={() => {
                         if (fileStructure.file.IsDirectory) toggleFolder(fileStructure.file.FileID!);
                     }}
                 >
-                    {fileStructure.file.IsDirectory ? (isExpanded ? '📂' : '📁') : '📄'} {fileStructure.file.FileName}
+                    {fileStructure.file.IsDirectory ? (
+                        isExpanded ? <FaFolderOpen className="mr-2 text-yellow-600" /> : <FaFolder className="mr-2 text-yellow-500" />
+                    ) : (
+                        <FaFile className="mr-2 text-blue-500" />
+                    )}
+                    <span>{fileStructure.file.FileName}</span>
                 </div>
                 {fileStructure.file.IsDirectory && isExpanded && fileStructure.children.size > 0 && (
-                    <ul className="ml-4">
+                    <ul className="ml-6">
                         {Array.from(fileStructure.children.entries()).map(([key, child]) =>
                             'file' in child ? (
                                 renderFiles(child as ProjectFileStructure)
@@ -88,34 +95,35 @@ export default function ProjectFiles(props: ProjectFilesProps) {
     };
 
     return (
-        <div>
-            <div className="flex justify-between items-center">
+        <div className="flex h-full">
+            <aside className="w-1/4 p-4 bg-gray-200 border-r border-gray-300 h-screen overflow-y-auto">
                 <button
                     onClick={() => props.states.projects()}
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                    className="mb-4 w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors"
                 >
                     Back to Projects
                 </button>
-            </div>
 
-            <h1>Project Files</h1>
+                <h1 className="text-lg font-semibold text-gray-800 mb-4">Project Files</h1>
 
-            {loading && <p>Loading project files...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+                {loading && <p className="text-gray-600">Loading project files...</p>}
+                {error && <p className="text-red-600">{error}</p>}
 
-            {!loading && !error && (
-                <div>
-                    <ul>
+                {!loading && !error && (
+                    <ul className="space-y-2">
                         {files.map((file) => renderFiles(file))}
                     </ul>
+                )}
+            </aside>
+            <main className="flex-1 p-6 bg-gray-100">
+                <h2 className="text-xl font-semibold text-gray-800">Files Overview</h2>
 
-                    <div style={{ marginTop: '20px' }}>
-                        {paginationLinks && (
-                            <Pagination paginationLinks={paginationLinks} handleNavigation={handleNavigation} />
-                        )}
-                    </div>
+                <div className="mt-4">
+                    {paginationLinks && (
+                        <Pagination paginationLinks={paginationLinks} handleNavigation={handleNavigation} />
+                    )}
                 </div>
-            )}
+            </main>
         </div>
     );
 }
