@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { TransitionStates, PaginationLinks, ProjectFileStructure } from './models';
 import Pagination from './Pagination';
-
+// credit to https://stackoverflow.com/questions/29085197/how-do-you-json-stringify-an-es6-map for json revivor for maps
 export interface ProjectFilesProps {
     tokenID: number;
     project_id: number;
@@ -25,7 +25,6 @@ export default function ProjectFiles(props: ProjectFilesProps) {
             const response = await axios.get(url, {
                 headers: { TokenID: props.tokenID },
             });
-            console.log(response.data.data);
             setFiles(JSON.parse(response.data.data, function reviver(key, value) {
                 if(typeof value === 'object' && value !== null) {
                   if (value.dataType === 'Map') {
