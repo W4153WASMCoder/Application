@@ -16,7 +16,6 @@ export default function ProjectItem(props: ProjectItemProps) {
             className="border-b border-gray-300 py-4 px-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
         >
             <h3 className="text-xl font-semibold text-gray-800">{project.project.ProjectName}</h3>
-            <p className="text-sm text-gray-600">Owned by User ID: {project.project.OwningUserID}</p>
             <p className="text-sm text-gray-600">Created on: {new Date(project.project.CreationDate).toLocaleString()}</p>
             <div className="mt-4 flex justify-center space-x-4">
                 <button
