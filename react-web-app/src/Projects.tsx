@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Project, PaginationLinks, ProjectWithLinks } from './models';
+import { TransitionStates, PaginationLinks, ProjectWithLinks } from './models';
 import ProjectItem from './ProjectItem';
 import Pagination from './Pagination';
 
 export interface ProjectsProps {
     tokenID: number;
+    states:TransitionStates;
 }
 
 export default function Projects(props: ProjectsProps) {
@@ -51,7 +52,7 @@ export default function Projects(props: ProjectsProps) {
                 <div>
                     <ul>
                         {projects.map((project) => (
-                            <ProjectItem key={project.project.ProjectID} project={project} />
+                            <ProjectItem key={project.project.ProjectID} project={project} states={props.states} />
                         ))}
                     </ul>
 

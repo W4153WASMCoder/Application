@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import axios from "axios";
-import { ActiveToken } from './models';
+import { ActiveToken, TransitionStates } from './models';
+import Cookies from 'js-cookie';
 
 export interface LoginProps {
-    setToken: (tokenID: number) => void;
+    states:TransitionStates;
 }
 
 export default function Login(props: LoginProps) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const login_endpoint = process.env.REACT_APP_LOGIN_ENDPOINT;
-    console.log(login_endpoint);
     const handleLogin = async () => {
         try {
             const response = await axios.post(login_endpoint || '', {
@@ -20,7 +20,8 @@ export default function Login(props: LoginProps) {
             // Assuming the response contains the token ID
             if (response.data && response.data.token.TokenID) {
                 const token:ActiveToken = response.data.token;
-                props.setToken(token.TokenID!);
+                Cookies.set('tokenid', token.TokenID! as any as string);
+                props.states.projects();
             } else {
                 console.error('Token not received');
             }
