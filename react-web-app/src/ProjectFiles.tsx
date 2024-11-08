@@ -43,7 +43,7 @@ export default function ProjectFiles(props: ProjectFilesProps) {
     };
 
     useEffect(() => {
-        fetchFiles(`${files_endpoint}?ProjectID=${props.project_id}&limit=25&offset=0`);
+        fetchFiles(`${files_endpoint}?ProjectID=${props.project_id}&limit=250&offset=0`);
     }, [props.project_id, props.tokenID]);
 
     const handleNavigation = (url: string) => {
