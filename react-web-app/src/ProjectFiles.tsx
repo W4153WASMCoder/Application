@@ -26,7 +26,14 @@ export default function ProjectFiles(props: ProjectFilesProps) {
                 headers: { TokenID: props.tokenID },
             });
             console.log(response.data.data);
-            setFiles(response.data.data);
+            setFiles(JSON.parse(response.data.data, function reviver(key, value) {
+                if(typeof value === 'object' && value !== null) {
+                  if (value.dataType === 'Map') {
+                    return new Map(value.value);
+                  }
+                }
+                return value;
+              }));
             setPaginationLinks(response.data.links);
         } catch (err: any) {
             setError("Error fetching project files.");
@@ -54,7 +61,6 @@ export default function ProjectFiles(props: ProjectFilesProps) {
             return newExpanded;
         });
     };
-
     const renderFiles = (fileStructure: ProjectFileStructure) => {
         const isExpanded = expandedFolders.has(fileStructure.file.FileID!);
         return (
@@ -94,7 +100,7 @@ export default function ProjectFiles(props: ProjectFilesProps) {
             </div>
 
             <h1>Project Files</h1>
-            
+
             {loading && <p>Loading project files...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
