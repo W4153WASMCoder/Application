@@ -6,7 +6,7 @@ import Pagination from './Pagination';
 
 export interface ProjectsProps {
     tokenID: number;
-    states:TransitionStates;
+    states: TransitionStates;
 }
 
 export default function Projects(props: ProjectsProps) {
@@ -42,21 +42,21 @@ export default function Projects(props: ProjectsProps) {
     };
 
     return (
-        <div>
-            <h1>Projects</h1>
+        <div className="container mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">Projects</h1>
 
-            {loading && <p>Loading projects...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {loading && <p className="text-gray-600">Loading projects...</p>}
+            {error && <p className="text-red-600">{error}</p>}
 
             {!loading && !error && (
                 <div>
-                    <ul>
+                    <ul className="space-y-4">
                         {projects.map((project) => (
                             <ProjectItem key={project.project.ProjectID} project={project} states={props.states} />
                         ))}
                     </ul>
 
-                    <div style={{ marginTop: '20px' }}>
+                    <div className="mt-6 flex justify-center">
                         {paginationLinks && (
                             <Pagination paginationLinks={paginationLinks} handleNavigation={handleNavigation} />
                         )}
