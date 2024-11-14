@@ -33,7 +33,7 @@ export default function Login(props: LoginProps) {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
-                <h2 className="text-2xl font-semibold text-center mb-6 text-gray-700">Login</h2>
+                <h2 className="text-2xl font-semibold text-center mb-6 text-gray-700">Login to WASM Coder</h2>
                 
                 <input
                     type="text"

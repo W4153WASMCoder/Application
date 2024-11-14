@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+Here’s a `README.md` for your React application:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```markdown
+# React Web Application
 
-## Available Scripts
+This is a React application built with TypeScript, designed to manage and interact with projects and project files. This document will guide you through the steps to clone, build, and run the application.
 
-In the project directory, you can run:
+## Prerequisites
 
-### `npm start`
+- Node.js (v14 or higher recommended)
+- npm (comes with Node.js)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Clone the Repository
 
-### `npm test`
+```bash
+git clone https://github.com/W4153WASMCoder/Application.git
+cd ./Application/react-web-app
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Set Up Environment Variables
 
-### `npm run build`
+Create a `.env` file in the `react-web-app` directory and add the following environment variables:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```env
+REACT_APP_LOGIN_ENDPOINT="http://localhost:8000/users/login"
+REACT_APP_PROJECTS_ENDPOINT="http://localhost:8000/projects"
+REACT_APP_PROJECT_FILES_ENDPOINT="http://localhost:8000/project_files"
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Adjust these URLs as needed to match your backend service configuration.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. Install Dependencies
 
-### `npm run eject`
+In the `react-web-app` directory, install the dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 4. Build the Project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To create a production-ready build of the application, run:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm run build
+```
 
-## Learn More
+The build files will be generated in the `./build` directory, specifically under `./build/static/css/` and `./build/static/js/`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 5. Run the Application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Development Mode:** Start the app with hot-reloading:
+  ```bash
+  npm start
+  ```
+  The application will be accessible at `http://localhost:3000` by default.
 
-### Code Splitting
+- **Production Mode:** After building, you can serve the `./build` directory with any static file server. For example, you can use `serve` (installable via npm) to serve it locally:
+  ```bash
+  npm install -g serve
+  serve -s build
+  ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 6. Project Structure
 
-### Analyzing the Bundle Size
+- `./src/index.tsx`: Entry point for the React application.
+- `./src/App.tsx`: Main application component.
+- `./src/Projects.tsx`: Component for handling projects.
+- `./src/ProjectFiles.tsx`: Component for handling project files.
+- `./src/Login.tsx`: Component for user login.
+- `./src/Pagination.tsx`: Component for pagination.
+- `./src/models.ts`: TypeScript models for data structures.
+- `./src/setupTests.ts`: Configuration for setting up tests.
+- `./src/reportWebVitals.ts`: Tool to measure performance metrics.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Running Tests
 
-### Making a Progressive Web App
+To execute tests:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+npm test
+```
 
-### Advanced Configuration
+This will run the tests defined in files like `App.test.tsx` and other test files in the `src` directory.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### License
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+See the main `LICENSE` file in the repository for licensing details.

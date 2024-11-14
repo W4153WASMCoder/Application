@@ -53,11 +53,10 @@ export default function ProjectFiles(props: ProjectFilesProps) {
     const toggleFolder = (fileID: number) => {
         setExpandedFolders((prev) => {
             const newExpanded = new Set(prev);
-            if (newExpanded.has(fileID)) {
+            if (newExpanded.has(fileID))
                 newExpanded.delete(fileID);
-            } else {
+            else
                 newExpanded.add(fileID);
-            }
             return newExpanded;
         });
     };
