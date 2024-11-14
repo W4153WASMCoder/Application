@@ -1,6 +1,5 @@
 Here’s a `README.md` for your React application:
 
-```markdown
 # React Web Application
 
 This is a React application built with TypeScript, designed to manage and interact with projects and project files. This document will guide you through the steps to clone, build, and run the application.
@@ -12,14 +11,7 @@ This is a React application built with TypeScript, designed to manage and intera
 
 ## Getting Started
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/W4153WASMCoder/Application.git
-cd ./Application/react-web-app
-```
-
-### 2. Set Up Environment Variables
+### 1. Set Up Environment Variables
 
 Create a `.env` file in the `react-web-app` directory and add the following environment variables:
 
@@ -31,7 +23,7 @@ REACT_APP_PROJECT_FILES_ENDPOINT="http://localhost:8000/project_files"
 
 Adjust these URLs as needed to match your backend service configuration.
 
-### 3. Install Dependencies
+### 2. Install Dependencies
 
 In the `react-web-app` directory, install the dependencies:
 
@@ -39,7 +31,7 @@ In the `react-web-app` directory, install the dependencies:
 npm install
 ```
 
-### 4. Build the Project
+### 3. Build the Project
 
 To create a production-ready build of the application, run:
 
@@ -49,7 +41,7 @@ npm run build
 
 The build files will be generated in the `./build` directory, specifically under `./build/static/css/` and `./build/static/js/`.
 
-### 5. Run the Application
+### 4. Run the Application
 
 - **Development Mode:** Start the app with hot-reloading:
   ```bash
@@ -63,7 +55,7 @@ The build files will be generated in the `./build` directory, specifically under
   serve -s build
   ```
 
-### 6. Project Structure
+### 5. Project Structure
 
 - `./src/index.tsx`: Entry point for the React application.
 - `./src/App.tsx`: Main application component.
