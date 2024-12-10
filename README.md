@@ -1,5 +1,5 @@
 Here’s a `README.md` for your React application:
-
+ 
 # React Web Application
 
 This is a React application built with TypeScript, designed to manage and interact with projects and project files. This document will guide you through the steps to clone, build, and run the application.
