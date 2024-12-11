@@ -11,6 +11,7 @@ export interface ProjectsProps {
 
 export default function Projects(props: ProjectsProps) {
     const projects_endpoint = process.env.REACT_APP_PROJECTS_ENDPOINT;
+    const application_service_endpoint = process.env.REACT_APP_APPLICATION_ENDPOINT;
 
 
     const [projects, setProjects] = useState<ProjectWithLinks[]>([]);
@@ -79,6 +80,25 @@ export default function Projects(props: ProjectsProps) {
             setNewProjectName('');
             setError(null);
             // await fetchProjects(`${projects_endpoint}?limit=25&offset=0`);
+
+
+
+
+            // this is for email sending
+
+            // try {
+            //     console.log('Notifying ApplicationService...');
+            //     await axios.post(
+            //         `${application_service_endpoint}/project/created`, 
+            //         {
+            //             projectId: response.data.data.ProjectID, 
+            //             userId: props.tokenID, 
+            //         }
+            //     );
+            //     console.log('ApplicationService notified successfully.');
+            // } catch (error) {
+            //     console.error('Error notifying ApplicationService:', error);
+            // }
         } catch (err) {
             console.error('Error adding project:', err);
             setError("Error adding project.");
