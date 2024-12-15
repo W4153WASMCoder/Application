@@ -45,7 +45,7 @@ export default function ProjectFiles(props: ProjectFilesProps) {
     const reload = () => fetchFiles(`${files_endpoint}?ProjectID=${props.project_id}&limit=250&offset=0`);
     const handleAddFile = async (FileName:string, IsDirectory:boolean) => {
         if (!FileName) return;
-        if (files.reduce(
+        if (files.length == 0 || files.reduce(
             (prev, cur) => cur.file.FileName == FileName ? cur : prev
         ).file.FileName === FileName) return;
         const file:ProjectFile = 
