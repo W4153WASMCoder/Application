@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { TransitionStates, PaginationLinks, ProjectFileStructure } from './models';
+import { TransitionStates, PaginationLinks, ProjectFileStructure, ProjectFile } from './models';
 import Pagination from './Pagination';
 import { FaFolder, FaFolderOpen, FaFile } from 'react-icons/fa';
 
@@ -41,9 +41,34 @@ export default function ProjectFiles(props: ProjectFilesProps) {
             setLoading(false);
         }
     };
-
+    const reload = () => fetchFiles(`${files_endpoint}?ProjectID=${props.project_id}&limit=250&offset=0`);
+    const handleAddFile = async (FileName:string, IsDirectory:boolean) => {
+        const file:ProjectFile = 
+        {
+            FileID: null,
+            ParentDirectory: null,
+            ProjectID: props.project_id,
+            FileName: FileName,
+            IsDirectory: IsDirectory,
+            creationDate: new Date(Date.now())
+        };
+        await axios.post(files_endpoint!, file, {
+            headers: {
+              'TokenID': props.tokenID
+            }
+          });
+        reload();
+    };
+    const handleDeleteFile = async (file_id:number) => {
+        await axios.delete(`${files_endpoint}/${file_id}`, {
+            headers: {
+              'TokenID': props.tokenID
+            }
+          });
+        reload();
+    };
     useEffect(() => {
-        fetchFiles(`${files_endpoint}?ProjectID=${props.project_id}&limit=250&offset=0`);
+        
     }, [props.project_id, props.tokenID]);
 
     const handleNavigation = (url: string) => {
