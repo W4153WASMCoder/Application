@@ -34,7 +34,6 @@ export default function ProjectFiles(props: ProjectFilesProps) {
                 }
                 return value;
             }));
-            console.log(files);
             setPaginationLinks(response.data.links);
         } catch (err: any) {
             setError("Error fetching project files.");
@@ -42,10 +41,13 @@ export default function ProjectFiles(props: ProjectFilesProps) {
             setLoading(false);
         }
     };
+    console.log(files);
     const reload = () => fetchFiles(`${files_endpoint}?ProjectID=${props.project_id}&limit=250&offset=0`);
     const handleAddFile = async (FileName:string, IsDirectory:boolean) => {
         if (!FileName) return;
-        //if (FileName in )
+        if (files.reduce(
+            (prev, cur) => cur.file.FileName == FileName ? cur : prev
+        ).file.FileName === FileName) return;
         const file:ProjectFile = 
         {
             FileID: null,
@@ -71,7 +73,7 @@ export default function ProjectFiles(props: ProjectFilesProps) {
         reload();
     };
     useEffect(() => {
-        
+        reload();
     }, [props.project_id, props.tokenID]);
 
     const handleNavigation = (url: string) => {
