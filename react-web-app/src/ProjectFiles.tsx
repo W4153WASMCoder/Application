@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { TransitionStates, PaginationLinks, ProjectFileStructure, ProjectFile } from './models';
 import Pagination from './Pagination';
-import { FaFolder, FaFolderOpen, FaFile } from 'react-icons/fa';
-
+import { FaFolder, FaFolderOpen, FaFile, FaTrash } from 'react-icons/fa';
 export interface ProjectFilesProps {
     tokenID: number;
     project_id: number;
@@ -107,12 +106,21 @@ export default function ProjectFiles(props: ProjectFilesProps) {
                     }}
                 >
                     {fileStructure.file.IsDirectory ? (
-                        isExpanded ? <FaFolderOpen className="mr-2 text-yellow-600" /> : <FaFolder className="mr-2 text-yellow-500" />
+                        isExpanded ? <FaFolderOpen className="mr-2 text-yellow-600"/> :
+                            <FaFolder className="mr-2 text-yellow-500"/>
                     ) : (
-                        <FaFile className="mr-2 text-blue-500" />
+                        <FaFile className="mr-2 text-blue-500"/>
                     )}
                     <span>{fileStructure.file.FileName}</span>
-                    <button onClick={() =>handleDeleteFile(fileStructure.file.FileID!)}> Delete </button>
+                    <button
+                        onClick={() => handleDeleteFile(fileStructure.file.FileID!)}
+                        className="ml-2 p-2 text-red-500 hover:text-red-700 transition-colors"
+                        aria-label="Delete file"
+                    >
+                        <FaTrash/>
+                    </button>
+
+
 
                 </div>
                 {fileStructure.file.IsDirectory && isExpanded && fileStructure.children.size > 0 && (
