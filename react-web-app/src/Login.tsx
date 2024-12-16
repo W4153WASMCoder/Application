@@ -18,7 +18,7 @@ export default function Login(props: LoginProps) {
                 password
             });
             // Assuming the response contains the token ID
-            if (response.data && response.data.token.TokenID) {
+            if (response.data && response.data.token.TokenID !== undefined) {
                 const token:ActiveToken = response.data.token;
                 Cookies.set('tokenid', token.TokenID! as any as string);
                 props.states.projects();
