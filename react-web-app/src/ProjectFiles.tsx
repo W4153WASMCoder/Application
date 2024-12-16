@@ -17,6 +17,10 @@ export default function ProjectFiles(props: ProjectFilesProps) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [expandedFolders, setExpandedFolders] = useState<Set<number>>(new Set());
+    //textbox
+    const [newFileName, setNewFileName] = useState<string>('');
+    //checkbox
+    const [isDirectory, setIsDirectory] = useState<boolean>(false);
 
     const fetchFiles = async (url: string) => {
         setLoading(true);
@@ -43,6 +47,7 @@ export default function ProjectFiles(props: ProjectFilesProps) {
     };
     console.log(files);
     const reload = () => fetchFiles(`${files_endpoint}?ProjectID=${props.project_id}&limit=250&offset=0`);
+
     const handleAddFile = async (FileName:string, IsDirectory:boolean) => {
         if (!FileName) return;
         if (files.length != 0 && files.reduce(
@@ -107,6 +112,8 @@ export default function ProjectFiles(props: ProjectFilesProps) {
                         <FaFile className="mr-2 text-blue-500" />
                     )}
                     <span>{fileStructure.file.FileName}</span>
+                    <button onClick={() =>handleDeleteFile(fileStructure.file.FileID!)}> Delete </button>
+
                 </div>
                 {fileStructure.file.IsDirectory && isExpanded && fileStructure.children.size > 0 && (
                     <ul className="ml-6">
@@ -143,10 +150,38 @@ export default function ProjectFiles(props: ProjectFilesProps) {
                         {files.map((file) => renderFiles(file))}
                     </ul>
                 )}
-
+                {/* text box, check box, Add button */}
+                <div className="mt-4">
+                    <label className="block text-gray-700 mb-1">File Name:</label>
+                    <input
+                        type="text"
+                        className="w-full p-2 border border-gray-300 rounded mb-2"
+                        placeholder="Enter file name"
+                        value={newFileName}
+                        onChange={(e) => setNewFileName(e.target.value)}
+                    />
+                    <div className="flex items-center mb-4">
+                        <input
+                            type="checkbox"
+                            id="isDirectory"
+                            checked={isDirectory}
+                            onChange={(e) => setIsDirectory(e.target.checked)}
+                        />
+                        <label htmlFor="isDirectory" className="ml-2 text-gray-700">
+                            Is Directory
+                        </label>
+                    </div>
+                    <button
+                        onClick={() => handleAddFile(newFileName, isDirectory)}
+                        className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors"
+                    >
+                        Add
+                    </button>
+                </div>
+                {/* done */}
                 <div className="mt-4">
                     {paginationLinks && (
-                        <Pagination paginationLinks={paginationLinks} handleNavigation={handleNavigation} />
+                        <Pagination paginationLinks={paginationLinks} handleNavigation={handleNavigation}/>
                     )}
                 </div>
             </aside>
